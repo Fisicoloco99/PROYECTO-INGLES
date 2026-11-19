@@ -75,7 +75,7 @@ class RoundedButton(tk.Canvas):
 
         self.create_text(w/2, h/2, text=self.text,
                          fill=self.fgcolor,
-                         font=("Segoe UI", 10, "bold"))     # Escribe el texto centrado.
+                         font=("Georgia", 12, "italic"))     # Escribe el texto centrado.
 
     def click(self, event):
         """Ejecuta la función asociada cuando se pulsa el botón."""
@@ -110,7 +110,11 @@ class RoundedButton(tk.Canvas):
 
         self.config(bg=self.parentbg)                      # Pinta el fondo exterior del Canvas.
         self.dibujar()                                     # Vuelve a dibujar el botón.
+    def set_font(self, font):
+            """Cambia la fuente o el tamaño del texto del botón en vivo."""
 
+            self.font = font                                   # Actualiza la fuente y su tamaño.
+            self.dibujar()                                     # Redibuja el botón con la nueva fuente.
 
 # 4° Paso :Base de datos
 conexion = sqlite3.connect("DICCIONARIO.db")  # Abro o creo la base de datos
@@ -194,21 +198,21 @@ frame_barra_busqueda.pack(side="top", fill="x", padx=15, pady=10)
 
 frame_barra_busqueda.grid_columnconfigure(1,weight=1)
 
-label_nombre = Label(frame_barra_busqueda, text="Palabra en inglés:",bg=Gris_niebla, fg=Gris_carbón,font=("Georgia", 11, "italic"))
+label_nombre = Label(frame_barra_busqueda, text="Palabra en inglés:",bg=Gris_niebla, fg=Gris_carbón,font=("Georgia", 12, "italic"))
 label_nombre.grid(row=0, column=0, sticky="w", padx=5)
 entry_nombre = Entry(frame_barra_busqueda, font=("Segoe UI", 12),bg = BLANCO)
 entry_nombre.grid(row=0, column=1, sticky="ew", padx=5, pady=3)
 
 # Boton de buscar, este es de prueba
-boton_ia = RoundedButton(frame_barra_busqueda,90, 40, 20, Rojo_coral, BLANCO,text="✨ Analizar con IA")
+boton_ia = RoundedButton(frame_barra_busqueda,150, 40, 20, Rojo_coral, BLANCO,text="✨ Analizar con IA")
 boton_ia.grid(row=0, column=2, padx=5)
 
 # Boton de limpiar, este es de prueba
-boton_internet = RoundedButton(frame_barra_busqueda, 90, 40, 20, Azul_claro, BLANCO,text=" Internet 🌐")
+boton_internet = RoundedButton(frame_barra_busqueda, 120, 40, 20, AZUL_PETROLEO, BLANCO,text=" Internet 🌐")
 boton_internet.grid(row=0, column=3, padx=5)
 
 # Boton de limpiar, este es de prueba
-boton_limpiar = RoundedButton(frame_barra_busqueda,90, 40, 20, Verde, BLANCO,text=" Limpiar 🧹")
+boton_limpiar = RoundedButton(frame_barra_busqueda,90, 40, 20, Verde, BLANCO,text ="Limpiar🧹")
 boton_limpiar.grid(row=0, column=4, padx=5)
 
 # 9° Paso: Frame para abajo, asi pongo el boton de la luna y el de informacion
@@ -231,14 +235,15 @@ cuerpo.pack(side = "top",fill="both", expand=True, padx=15, pady=15)
 
 # FRAME IZQUIERDO
 frame_izquierda = Frame(cuerpo, bg=Gris_niebla,relief="solid", bd=1)  # Frame izquierdo
-frame_izquierda.pack(side="left", fill="both", expand=True, padx=10,pady=10)
-Label(frame_izquierda,text="Resultados",bg=Gris_niebla,fg=NEGRO,font=("Segoe UI", 11, "bold")).pack(side="top",anchor="n", padx=10, pady=(10, 5))
+frame_izquierda.pack(side="left", fill="both", expand=True, padx=(8,0))
+Label(frame_izquierda,text="Resultados",bg=Gris_niebla,fg=NEGRO,font=("Georgia", 13, "italic")).pack(side="top",anchor="n", padx=10, pady=(10, 5))
 
 # Scroll para la listbox
 scroll_izquierdo = tk.Scrollbar(frame_izquierda, orient="vertical")  # Scroll
 scroll_izquierdo.pack(side="right", fill="y")
 lista_de_palabras = Listbox(frame_izquierda,yscrollcommand=scroll_izquierdo.set,
-font=("Segoe UI", 12),bg=BLANCO,fg=Gris_carbón,selectbackground=Azul_medio,selectforeground=BLANCO,relief="flat",bd=0)
+font=("Georgia", 13, "italic"),bg=BLANCO,fg=Gris_carbón,
+selectbackground=Azul_medio,selectforeground=BLANCO,relief="flat",bd=0)
 lista_de_palabras.pack(side="left", fill="both", expand=True,padx=5, pady=5)
 scroll_izquierdo.config(command=lista_de_palabras.yview)
 
@@ -246,7 +251,7 @@ scroll_izquierdo.config(command=lista_de_palabras.yview)
 # FRAME DERECHO
 frame_derecho = Frame(cuerpo, bg=Gris_niebla,relief="solid", bd=1)  # Frame derecho
 frame_derecho.pack(side="right", fill="both", expand=True, padx=(8, 0))
-Label(frame_derecho,text="Ejemplos",bg=Gris_niebla,fg=NEGRO,font=("Segoe UI", 11, "bold")).pack(side="top",anchor="n", padx=10, pady=(10, 5))
+Label(frame_derecho,text="Ejemplos",bg=Gris_niebla,fg=NEGRO,font=("Georgia", 14, "italic")).pack(side="top",anchor="n", padx=10, pady=(10, 5))
 
 # Scroll para la listbox
 scroll_derecho = tk.Scrollbar(frame_derecho, orient="vertical")  # Scroll
@@ -362,7 +367,7 @@ def abrir_ventana_autores():
     frame_textos = Frame(ventana_autores, bg=AZUL_PETROLEO, width=450)
     frame_textos.pack(side="left", fill="y", padx=(60, 0)) 
     frame_textos.pack_propagate(False)
-    Label(frame_textos, text="AUTORES", bg=AZUL_PETROLEO, fg=BLANCO, font=("Segoe UI", 32, "bold")).pack(pady=(40, 5))
+    Label(frame_textos, text="AUTORES", bg=AZUL_PETROLEO, fg=BLANCO, font=("Georgia", 32, "italic")).pack(pady=(40, 5))
     Label(frame_textos, text="EQUIPO DE DESARROLLO", bg=AZUL_PETROLEO,fg=AMARILLO, font=("Segoe UI", 14, "bold")).pack(pady=(0, 20))
     nombres = [ "Nahuel Zanini" ]
     for nombre in nombres: Label(frame_textos, text=nombre, bg=AZUL_PETROLEO, fg=BLANCO, font=("Segoe UI", 12)).pack(pady=2)
@@ -407,7 +412,7 @@ def abrir_ventana_verbos_irregulares():
     scroll_derecho.config(command=lista_de_verbos.yview)
     agregar_boton_luna(ventana_verbos)
 
-btn_verbos = RoundedButton(frame_botones, 130, 40, 20, Rojo_coral, BLANCO, text="Verbos Irregulares",command=abrir_ventana_verbos_irregulares)
+btn_verbos = RoundedButton(frame_botones, 160, 40, 20, Rojo_coral, BLANCO, text="Verbos Irregulares",command=abrir_ventana_verbos_irregulares)
 btn_verbos.pack(side="left", padx=5, pady=5)
 
 
